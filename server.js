@@ -13,7 +13,7 @@ const app = express();
 
 // Replace 'your-frontend-app-name' with the name you will give your frontend app on Render
 app.use(cors({
-  origin: ['https://tcs-frontend-p0mv.onrender.com', 'http://localhost:3000'], // Allow both local and production
+  origin: ['https://traffic-challan-system.netlify.app','https://tcs-frontend-p0mv.onrender.com', 'http://localhost:3000'], // Allow both local and production
   credentials: true
 }));
 
