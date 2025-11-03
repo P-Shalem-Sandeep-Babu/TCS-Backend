@@ -1,28 +1,30 @@
+// backend/server.js
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const challanRoutes = require("./routes/challanRoutes");
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes"); // Or userRoutes.js depending on your choice
 
 dotenv.config();
 connectDB();
 
 const app = express();
 
-// ✅ Use CORS with specific origin and credentials
-app.use(
-  cors({
-    origin: "http://localhost:3000", // React app's address
-    credentials: true,
-  })
-);
+// Replace 'your-frontend-app-name' with the name you will give your frontend app on Render
+app.use(cors({
+  origin: ['https://your-frontend-app-name.onrender.com', 'http://localhost:3000'], // Allow both local and production
+  credentials: true
+}));
 
 app.use(express.json());
 
-// Routes
 app.use("/api/challans", challanRoutes);
 app.use("/api/auth", userRoutes);
 
-// Start server
-app.listen(5000, () => console.log("✅ Server running on port 5000"));
+// --- IMPORTANT: Use Render's Port ---
+const port = process.env.PORT || 5000; // Use the port provided by Render
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
